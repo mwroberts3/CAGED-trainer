@@ -1,0 +1,64 @@
+:root {
+  --max-width: 600px;
+  --min-width: 300px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+}
+
+.main-container {
+
+}
+
+.control-panel-container {
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  height: 100px;
+  color: #eee;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.display-HUD-container {
+  padding: 20px;
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  height: 200px;
+  margin: 0 auto;
+  color: lime;
+  border: 3px solid #ddd;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-HUD-inner-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.training-unit {
+  text-align: center;
+}
+
+.current-unit {
+  font-size: 24px;
+}
+
+.previous-unit {
+  color: #666;
+}
+
+.next-unit {
+  color: #b8ffb8;
+  opacity: 0.7;
+}
