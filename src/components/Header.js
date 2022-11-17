@@ -2,7 +2,9 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <header>
+      CAGED Trainer
+    </header>
   )
 }
 

@@ -11,6 +11,12 @@ body {
   background: black;
 }
 
+header {
+  color: #eee;
+  text-align: center;
+  font-size: 36px;
+}
+
 .main-container {
 
 }
@@ -18,7 +24,7 @@ body {
 .control-panel-container {
   max-width: var(--max-width);
   min-width: var(--min-width);
-  height: 100px;
+  height: 60px;
   color: #eee;
   margin: 0 auto;
   display: flex;
@@ -44,6 +50,23 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+
+.sound-control,
+.speed-control,
+.type-control {
+  margin-top: 22px;
+}
+
+.sound-control * {
+  width: 20px;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+}
+
+.position-range-control h3 {
+  margin-top: 0;
+  margin-bottom: 2px;
 }
 
 .training-unit {
