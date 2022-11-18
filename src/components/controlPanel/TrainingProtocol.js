@@ -1,6 +1,9 @@
 import React from 'react'
+import { useGlobalContext } from '../../context';
 
 const TrainingProtocol = () => {
+  const { trainingParameters, updateTrainingParameters } = useGlobalContext();
+
   return <>
       <div className='position-range-control option-setting'>
         <h3>Fret Range:</h3>
@@ -42,6 +45,10 @@ const TrainingProtocol = () => {
           <option>14</option>
           <option>15</option>
         </select>
+      </div>
+      <div className='show-form-control option-setting'>
+        <label>Show Form</label>
+        <input type='checkbox' />
       </div>
       <div className='type-control option-setting'>
         <label>Type:</label>

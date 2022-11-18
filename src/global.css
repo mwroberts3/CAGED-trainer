@@ -54,7 +54,8 @@ header {
 
 .sound-control,
 .speed-control,
-.type-control {
+.type-control,
+.show-form-control {
   margin-top: 22px;
 }
 

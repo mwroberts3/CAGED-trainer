@@ -1,11 +1,12 @@
 import React from 'react'
 
-const TrainingUnit = () => {
+const TrainingUnit = ({unitInfo}) => {
+  const {form, position, chord} = unitInfo;
   return (
     <div className='training-unit'>
-      <p>G Form</p>
-      <p>5th Position</p>
-      <p>C Chord</p>
+      <p>{form}</p>
+      <p>{position}</p>
+      <p>{chord}</p>
     </div>
   )
 }

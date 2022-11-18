@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaVolumeMute, FaVolumeUp, FaPlay, FaPause } from 'react-icons/fa'
+import { useGlobalContext } from '../../context'
 
 const SoundSpeedControls = () => {
+  const { speed, setSpeed, play, setPlay } = useGlobalContext();
+
   return <>
       <div className='sound-control option-setting'>
         <FaVolumeUp />
