@@ -3,7 +3,7 @@ import { useState, useContext, createContext } from 'react'
 const AppContext = createContext();
 
 export const AppProvider = ({children}) => {
-  const [trainingParameters, setTraingParameters] = useState({
+  const [trainingParameters, setTrainingParameters] = useState({
     fretRange: {min: 0, max: 15},
     showForm: true,
     type: 'chords'
@@ -13,7 +13,7 @@ export const AppProvider = ({children}) => {
     
   }
 
-  const [speed, setSpeed] = useState({setting: 1, value: 5000});
+  const [speed, setSpeed] = useState({setting: 1, value: 3500});
   const [play, setPlay] = useState(true);
 
   return <AppContext.Provider value={{
