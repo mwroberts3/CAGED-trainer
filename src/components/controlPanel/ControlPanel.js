@@ -1,12 +1,16 @@
 import React from 'react'
 import SoundSpeedControls from './SoundSpeedControls'
 import TrainingProtocol from './TrainingProtocol'
+import TimingLine from './TimingLine'
 
 const ControlPanel = () => {
   return (
     <div className='control-panel-container'>
-      <SoundSpeedControls />
-      <TrainingProtocol />
+      <div className='inner-cpc'>
+        <SoundSpeedControls />
+        <TrainingProtocol />
+      </div>
+      <TimingLine />
     </div>
   )
 }

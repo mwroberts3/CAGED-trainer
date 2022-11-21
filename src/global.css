@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --max-width: 600px;
   --min-width: 300px;
@@ -8,7 +11,9 @@
 }
 
 body {
-  background: black;
+  background: #444;
+  font-family: 'Poppins', sans-serif;
+  padding-top: 40px;
 }
 
 header {
@@ -17,11 +22,21 @@ header {
   font-size: 36px;
 }
 
+footer {
+  margin-top: 5px;
+  text-align: center;
+  color: #222;
+}
+
 .main-container {
 
 }
 
 .control-panel-container {
+  padding-bottom: 7px;
+}
+
+.inner-cpc {
   max-width: var(--max-width);
   min-width: var(--min-width);
   height: 60px;
@@ -44,12 +59,23 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #000;
 }
 
 .display-HUD-inner-container {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  font-family: 'Courier Prime', monospace;
+}
+
+.current-unit {
+  width: 50%;
+}
+
+.previous-unit,
+.next-unit {
+  width: 25%;
 }
 
 .sound-control,
@@ -68,6 +94,13 @@ header {
 .position-range-control h3 {
   margin-top: 0;
   margin-bottom: 2px;
+}
+
+.timing-line {
+  background: #ff5a5a;
+  width: calc(var(--max-width) - 20px);
+  height: 3px;
+  margin: 0 auto;
 }
 
 .training-unit {

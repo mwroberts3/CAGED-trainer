@@ -7,14 +7,12 @@ import { data } from '../../data'
 const DisplayHUD = () => {
   const { trainingParameters, speed, play } = useGlobalContext();
 
-  const refTest = useRef(null)
+  const unitPass1 = useRef(null)
+  const unitPass2 = useRef(null)
 
   const [trainingUnits, setTrainingUnits] = useState({});
 
-  
-  // maybe a useMemo to store the previous and current training units?
-
-  // generate first random training unit
+    // generate first random training unit
   useEffect(() => {
     const generateNextTrainingUnit = () => {
     // let max = (trainingParameters.fretRange.max + 1) * 5 - 1;
@@ -40,25 +38,31 @@ const DisplayHUD = () => {
     let tempPos = createPosDis();
 
     let tempChord = Object.values(data.chords[randomIndex])[0];
-    
-    console.log(refTest);
-    
+       
     setTrainingUnits({
       prev: {
-        form: 'prev form', 
-        position: 'prev pos', 
-        chord: 'prev chord'},
+          form: unitPass2.current ? unitPass2.current.form : '', 
+          position: unitPass2.current ? unitPass2.current.position : '', 
+          chord: unitPass2.current ? unitPass2.current.chord : '',},
         current: {
-          form: refTest.current ? refTest.current.form : 'undefined', 
-          position: refTest.current ? refTest.current.position : 'undefined', 
-          chord: refTest.current ? refTest.current.chord : 'undefined',},
+          form: unitPass1.current ? unitPass1.current.form : 'Ready?', 
+          position: unitPass1.current ? unitPass1.current.position : '', 
+          chord: unitPass1.current ? unitPass1.current.chord : '',},
           next: {
             form: `${tempForm} form`, 
             position: `${tempPos} pos`, 
             chord: `${tempChord} chord`}
           });
           
-    refTest.current = {form: `${tempForm} form`, 
+    if (unitPass1.current) {
+      unitPass2.current = {
+        form: unitPass1.current.form,
+        position: unitPass1.current.position,
+        chord: unitPass1.current.chord,
+      }
+    }
+    
+    unitPass1.current = {form: `${tempForm} form`, 
         position: `${tempPos} pos`, 
         chord: `${tempChord} chord`}
     function createPosDis() {
@@ -75,7 +79,7 @@ const DisplayHUD = () => {
 
     generateNextTrainingUnit();
 
-    const trainingInterval = setInterval(() => {
+  const trainingInterval = setInterval(() => {
     if (play) {
       generateNextTrainingUnit();
     }

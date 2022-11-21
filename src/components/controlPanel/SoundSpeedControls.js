@@ -8,7 +8,7 @@ const SoundSpeedControls = () => {
   return <>
       <div className='sound-control option-setting'>
         <FaVolumeUp />
-        <FaPlay />
+        {play ? <FaPause onClick={() => setPlay(false)}/> : <FaPlay onClick={() => setPlay(true)}/>}
       </div>
       <div className='speed-control option-setting'>
         <label>Speed:</label>
