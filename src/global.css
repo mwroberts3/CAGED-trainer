@@ -32,14 +32,10 @@ footer {
 
 }
 
-.control-panel-container {
-  padding-bottom: 7px;
-}
-
 .inner-cpc {
   max-width: var(--max-width);
   min-width: var(--min-width);
-  height: 60px;
+  height: 30px;
   color: #eee;
   margin: 0 auto;
   display: flex;
@@ -78,30 +74,25 @@ footer {
   width: 25%;
 }
 
-.sound-control,
-.speed-control,
-.type-control,
-.show-form-control {
-  margin-top: 22px;
-}
-
 .sound-control * {
   width: 20px;
   margin: 0 20px 0 0;
   cursor: pointer;
 }
 
-.position-range-control h3 {
-  margin-top: 0;
-  margin-bottom: 2px;
-}
-
 .timing-line {
   background: #ff5a5a;
-  width: calc(var(--max-width) - 20px);
+  width: 300px;
   height: 3px;
   margin: 0 auto;
 }
+
+.timing-line-1 {transition: all 5s linear}
+.timing-line-2 {transition: all 3s linear}
+.timing-line-3 {transition: all 1.5s linear}
+
+.trim {width: 0px}
+.grow {width: 300px}
 
 .training-unit {
   text-align: center;

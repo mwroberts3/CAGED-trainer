@@ -13,7 +13,7 @@ export const AppProvider = ({children}) => {
     
   }
 
-  const [speed, setSpeed] = useState({setting: 1, value: 1500});
+  const [speed, setSpeed] = useState({setting: 1, value: 5000});
   const [play, setPlay] = useState(true);
 
   return <AppContext.Provider value={{

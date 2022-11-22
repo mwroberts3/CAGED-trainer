@@ -5,6 +5,12 @@ import { useGlobalContext } from '../../context'
 const SoundSpeedControls = () => {
   const { speed, setSpeed, play, setPlay } = useGlobalContext();
 
+  const handleSpeedChange = (e) => {
+    if (+e.target.value === 1) setSpeed({setting: +e.target.value, value: 5000})
+    if (+e.target.value === 2) setSpeed({setting: +e.target.value, value: 3000})
+    if (+e.target.value === 3) setSpeed({setting: +e.target.value, value: 1500})
+  }
+
   return <>
       <div className='sound-control option-setting'>
         <FaVolumeUp />
@@ -12,13 +18,11 @@ const SoundSpeedControls = () => {
       </div>
       <div className='speed-control option-setting'>
         <label>Speed:</label>
-        <select>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+          <select value={speed.setting} onChange={handleSpeedChange}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+          </select>
       </div>
   </>
 }

@@ -13,6 +13,7 @@ const DisplayHUD = () => {
   const [trainingUnits, setTrainingUnits] = useState({});
 
     // generate first random training unit
+
   useEffect(() => {
     const generateNextTrainingUnit = () => {
     // let max = (trainingParameters.fretRange.max + 1) * 5 - 1;
@@ -92,9 +93,15 @@ const DisplayHUD = () => {
     <div className='display-HUD-container'>
       <div className='display-HUD-inner-container'>
         {trainingUnits.current && <>
-        <div className='previous-unit'><TrainingUnit unitInfo={trainingUnits.prev}/></div>
-        <div className='current-unit'><TrainingUnit unitInfo={trainingUnits.current}/></div>
-        <div className='next-unit'><TrainingUnit unitInfo={trainingUnits.next}/></div></>}
+        <div className='previous-unit'>
+          <TrainingUnit unitInfo={trainingUnits.prev}/>
+        </div>
+        <div className='current-unit'>
+          <TrainingUnit unitInfo={trainingUnits.current}/>
+        </div>
+        <div className='next-unit'>
+          <TrainingUnit unitInfo={trainingUnits.next}/>
+        </div></>}
       </div>
     </div>
   )

@@ -6,7 +6,6 @@ const TrainingProtocol = () => {
 
   return <>
       <div className='position-range-control option-setting'>
-        <h3>Fret Range:</h3>
         <label>Min:</label>
         <select>
           <option>open</option>
