@@ -5,17 +5,23 @@ import { useGlobalContext } from '../../context'
 import { data } from '../../data'
 
 const DisplayHUD = () => {
-  const { trainingParameters, speed, play } = useGlobalContext();
+  const { trainingParameters, speed, play, timingLineRef } = useGlobalContext();
 
-  const unitPass1 = useRef(null)
-  const unitPass2 = useRef(null)
+  const unitPass1 = useRef(null);
+  const unitPass2 = useRef(null);
 
   const [trainingUnits, setTrainingUnits] = useState({});
 
-    // generate first random training unit
-
   useEffect(() => {
-    const generateNextTrainingUnit = () => {
+    generateNextTrainingUnit();
+    
+    const trainingInterval = setInterval(() => {
+      if (play) {
+        generateNextTrainingUnit();
+      }
+    }, speed.value);
+  
+    function generateNextTrainingUnit() {
     // let max = (trainingParameters.fretRange.max + 1) * 5 - 1;
     // let min = trainingParameters.fretRange.min * 5;
     // trainingParameters.fretRange.min = 0 ? min = 0 : min = trainingParameters.fretRange.min * 5 - 1
@@ -39,7 +45,7 @@ const DisplayHUD = () => {
     let tempPos = createPosDis();
 
     let tempChord = Object.values(data.chords[randomIndex])[0];
-       
+      
     setTrainingUnits({
       prev: {
           form: unitPass2.current ? unitPass2.current.form : '', 
@@ -54,7 +60,7 @@ const DisplayHUD = () => {
             position: `${tempPos} pos`, 
             chord: `${tempChord} chord`}
           });
-          
+
     if (unitPass1.current) {
       unitPass2.current = {
         form: unitPass1.current.form,
@@ -66,6 +72,9 @@ const DisplayHUD = () => {
     unitPass1.current = {form: `${tempForm} form`, 
         position: `${tempPos} pos`, 
         chord: `${tempChord} chord`}
+
+    timingLineTransition();
+
     function createPosDis() {
       let pos = +Object.keys(data.chords[randomIndex])[0].substring(1);
 
@@ -76,18 +85,19 @@ const DisplayHUD = () => {
 
       return `${pos}th`;
     }
-  }
 
-    generateNextTrainingUnit();
-
-  const trainingInterval = setInterval(() => {
-    if (play) {
-      generateNextTrainingUnit();
+    function timingLineTransition() {
+      if (timingLineRef.current.classList.contains('trim')) {
+        timingLineRef.current.classList.add('grow');
+        timingLineRef.current.classList.remove('trim');
+      } else {
+        timingLineRef.current.classList.add('trim');
+        timingLineRef.current.classList.remove('grow');
+      }
     }
-  }, speed.value);
-
+  }
   return () => clearInterval(trainingInterval);
-  }, [speed, play, trainingParameters])
+  }, [speed, play, trainingParameters, timingLineRef])
 
   return (
     <div className='display-HUD-container'>
