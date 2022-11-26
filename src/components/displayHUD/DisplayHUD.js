@@ -22,80 +22,77 @@ const DisplayHUD = () => {
     }, speed.value);
   
     function generateNextTrainingUnit() {
-    // let max = (trainingParameters.fretRange.max + 1) * 5 - 1;
-    // let min = trainingParameters.fretRange.min * 5;
-    // trainingParameters.fretRange.min = 0 ? min = 0 : min = trainingParameters.fretRange.min * 5 - 1
+      let max = trainingParameters.fretRange.max * 5 === 0 ? 4 : trainingParameters.fretRange.max * 5 + 5;
+      let min = trainingParameters.fretRange.min * 5 >= 0 ? trainingParameters.fretRange.min * 5 : 0;
 
-    let max = 79;
-    let min = 0;
-    
-    let difference = max - min;
+      let difference = max - min;
 
-    // generate random number 
-    let randomIndex = Math.random();
+      // generate random number 
+      let randomIndex = Math.random();
 
-    // multiply with difference 
-    randomIndex = Math.floor( randomIndex * difference);
+      // multiply with difference 
+      randomIndex = Math.floor( randomIndex * difference);
 
-    // add with min value 
-    randomIndex = randomIndex + min;
+      // add with min value 
+      randomIndex = randomIndex + min;
 
-    let tempForm = Object.keys(data.chords[randomIndex])[0].substring(0,1);
-    
-    let tempPos = createPosDis();
 
-    let tempChord = Object.values(data.chords[randomIndex])[0];
+      let tempForm = Object.keys(data.chords[randomIndex])[0].substring(0,1);
       
-    setTrainingUnits({
-      prev: {
-          form: unitPass2.current ? unitPass2.current.form : '', 
-          position: unitPass2.current ? unitPass2.current.position : '', 
-          chord: unitPass2.current ? unitPass2.current.chord : '',},
-        current: {
-          form: unitPass1.current ? unitPass1.current.form : 'Ready?', 
-          position: unitPass1.current ? unitPass1.current.position : '', 
-          chord: unitPass1.current ? unitPass1.current.chord : '',},
-          next: {
-            form: `${tempForm} form`, 
-            position: `${tempPos} pos`, 
-            chord: `${tempChord} chord`}
-          });
+      let tempPos = createPosDis();
 
-    if (unitPass1.current) {
-      unitPass2.current = {
-        form: unitPass1.current.form,
-        position: unitPass1.current.position,
-        chord: unitPass1.current.chord,
+      let tempChord = Object.values(data.chords[randomIndex])[0];
+        
+      setTrainingUnits({
+        prev: {
+            form: unitPass2.current ? unitPass2.current.form : '', 
+            position: unitPass2.current ? unitPass2.current.position : '', 
+            chord: unitPass2.current ? unitPass2.current.chord : '',},
+          current: {
+            form: unitPass1.current ? unitPass1.current.form : 'Ready?', 
+            position: unitPass1.current ? unitPass1.current.position : '', 
+            chord: unitPass1.current ? unitPass1.current.chord : '',},
+            next: {
+              form: `${tempForm} form`, 
+              position: `${tempPos} pos`, 
+              chord: `${tempChord} chord`}
+            });
+
+      if (unitPass1.current) {
+        unitPass2.current = {
+          form: unitPass1.current.form,
+          position: unitPass1.current.position,
+          chord: unitPass1.current.chord,
+        }
+      }
+      
+      unitPass1.current = {form: `${tempForm} form`, 
+          position: `${tempPos} pos`, 
+          chord: `${tempChord} chord`}
+
+      timingLineTransition();
+
+      function createPosDis() {
+        let pos = +Object.keys(data.chords[randomIndex])[0].substring(1);
+
+        if (pos === 0) return 'open';
+        if (pos === 1) return '1st';
+        if (pos === 2) return '2nd';
+        if (pos === 3) return '3rd';
+
+        return `${pos}th`;
+      }
+
+      function timingLineTransition() {
+        if (timingLineRef.current.classList.contains('trim')) {
+          timingLineRef.current.classList.add('grow');
+          timingLineRef.current.classList.remove('trim');
+        } else {
+          timingLineRef.current.classList.add('trim');
+          timingLineRef.current.classList.remove('grow');
+        }
       }
     }
-    
-    unitPass1.current = {form: `${tempForm} form`, 
-        position: `${tempPos} pos`, 
-        chord: `${tempChord} chord`}
-
-    timingLineTransition();
-
-    function createPosDis() {
-      let pos = +Object.keys(data.chords[randomIndex])[0].substring(1);
-
-      if (pos === 0) return 'open';
-      if (pos === 1) return '1st';
-      if (pos === 2) return '2nd';
-      if (pos === 3) return '3rd';
-
-      return `${pos}th`;
-    }
-
-    function timingLineTransition() {
-      if (timingLineRef.current.classList.contains('trim')) {
-        timingLineRef.current.classList.add('grow');
-        timingLineRef.current.classList.remove('trim');
-      } else {
-        timingLineRef.current.classList.add('trim');
-        timingLineRef.current.classList.remove('grow');
-      }
-    }
-  }
   return () => clearInterval(trainingInterval);
   }, [speed, play, trainingParameters, timingLineRef])
 

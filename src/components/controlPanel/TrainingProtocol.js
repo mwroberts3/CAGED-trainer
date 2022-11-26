@@ -6,43 +6,43 @@ const TrainingProtocol = () => {
 
   return <>
       <div className='position-range-control option-setting'>
-        <label>Min:</label>
-        <select>
-          <option>open</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
+        <label>Min </label>
+        <select id='min-select' value={trainingParameters.fretRange.min} onChange={updateTrainingParameters}>
+          <option value={0}>open</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+          <option value={6}>6</option>
+          <option value={7}>7</option>
+          <option value={8}>8</option>
+          <option value={9}>9</option>
+          <option value={10}>10</option>
+          <option value={11}>11</option>
+          <option value={12}>12</option>
+          <option value={13}>13</option>
+          <option value={14}>14</option>
+          <option value={15}>15</option>
         </select>
-        <label>Max:</label>
-        <select>
-          <option>open</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
+        <label>Max </label>
+        <select id='max-select' value={trainingParameters.fretRange.max} onChange={updateTrainingParameters}>
+          <option value={0}>open</option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+          <option value={6}>6</option>
+          <option value={7}>7</option>
+          <option value={8}>8</option>
+          <option value={9}>9</option>
+          <option value={10}>10</option>
+          <option value={11}>11</option>
+          <option value={12}>12</option>
+          <option value={13}>13</option>
+          <option value={14}>14</option>
+          <option value={15}>15</option>
         </select>
       </div>
       <div className='show-form-control option-setting'>
@@ -50,7 +50,7 @@ const TrainingProtocol = () => {
         <input type='checkbox' />
       </div>
       <div className='type-control option-setting'>
-        <label>Type:</label>
+        <label>Type </label>
         <select>
           <option>chords</option>
           <option>scales</option>

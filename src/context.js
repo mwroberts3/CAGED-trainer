@@ -9,8 +9,30 @@ export const AppProvider = ({children}) => {
     type: 'chords'
     })
   
-  const updateTrainingParameters = () => {
-    
+  const updateTrainingParameters = (e) => {
+    if (e.target.id === 'min-select') {
+      if (e.target.value > trainingParameters.fretRange.max) {
+        alert('choose value lower or equal to max');
+      } else {
+        setTrainingParameters((state) => {
+          return {
+            ...state,
+            fretRange: {...state.fretRange, min: +e.target.value}
+            }
+        })
+      }
+    } else {
+      if (e.target.value < trainingParameters.fretRange.min) {
+        alert('choose value higher or equal to min');
+      } else {
+        setTrainingParameters((state) => {
+          return {
+            ...state,
+            fretRange: {...state.fretRange, max: +e.target.value}
+            }
+        })
+      }
+    }
   }
 
   const [speed, setSpeed] = useState({setting: 1, value: 5000});
