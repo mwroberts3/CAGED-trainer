@@ -14,29 +14,37 @@ export const AppProvider = ({children}) => {
       if (e.target.value > trainingParameters.fretRange.max) {
         alert('choose value lower or equal to max');
       } else {
-        setTrainingParameters((state) => {
+        setTrainingParameters(state => {
           return {
             ...state,
             fretRange: {...state.fretRange, min: +e.target.value}
             }
         })
       }
-    } else {
+    } else if (e.target.id === 'max-select') {
       if (e.target.value < trainingParameters.fretRange.min) {
         alert('choose value higher or equal to min');
       } else {
-        setTrainingParameters((state) => {
+        setTrainingParameters(state => {
           return {
             ...state,
             fretRange: {...state.fretRange, max: +e.target.value}
             }
         })
       }
+    } else if (e.target.id === 'show-form-select') {
+      setTrainingParameters(state => {
+        return {
+          ...state,
+          showForm: !state.showForm
+        }
+      })
     }
   }
 
   const [speed, setSpeed] = useState({setting: 1, value: 5000});
   const [play, setPlay] = useState(true);
+  const [mute, setMute] = useState(false);
   const timingLineRef = useRef(null)
 
   return <AppContext.Provider value={{
@@ -46,6 +54,8 @@ export const AppProvider = ({children}) => {
     setSpeed,
     play,
     setPlay,
+    mute,
+    setMute,
     timingLineRef
   }}>
     {children}

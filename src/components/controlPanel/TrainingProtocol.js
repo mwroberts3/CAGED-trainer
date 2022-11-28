@@ -25,7 +25,9 @@ const TrainingProtocol = () => {
           <option value={14}>14</option>
           <option value={15}>15</option>
         </select>
-        <label>Max </label>
+      </div>
+      <div className='position-range-control option-setting'>
+        <label> Max </label>
         <select id='max-select' value={trainingParameters.fretRange.max} onChange={updateTrainingParameters}>
           <option value={0}>open</option>
           <option value={1}>1</option>
@@ -47,14 +49,14 @@ const TrainingProtocol = () => {
       </div>
       <div className='show-form-control option-setting'>
         <label>Show Form</label>
-        <input type='checkbox' />
+        <input id='show-form-select' onChange={updateTrainingParameters} type='checkbox' checked={trainingParameters.showForm} />
       </div>
-      <div className='type-control option-setting'>
+      <div className='type-control option-setting' style={{display: 'none'}}>
         <label>Type </label>
-        <select>
-          <option>chords</option>
-          <option>scales</option>
-          <option>mix</option>
+        <select id='change-type-select' onChange={updateTrainingParameters} value={trainingParameters.type}>
+          <option value={'chords'}>chords</option>
+          <option value={'scales'}>scales</option>
+          <option value={'both'}>both</option>
         </select>
       </div>
   </>

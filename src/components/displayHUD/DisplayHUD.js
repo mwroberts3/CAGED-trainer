@@ -36,7 +36,6 @@ const DisplayHUD = () => {
       // add with min value 
       randomIndex = randomIndex + min;
 
-
       let tempForm = Object.keys(data.chords[randomIndex])[0].substring(0,1);
       
       let tempPos = createPosDis();
@@ -48,14 +47,14 @@ const DisplayHUD = () => {
             form: unitPass2.current ? unitPass2.current.form : '', 
             position: unitPass2.current ? unitPass2.current.position : '', 
             chord: unitPass2.current ? unitPass2.current.chord : '',},
-          current: {
+        current: {
             form: unitPass1.current ? unitPass1.current.form : 'Ready?', 
             position: unitPass1.current ? unitPass1.current.position : '', 
             chord: unitPass1.current ? unitPass1.current.chord : '',},
-            next: {
-              form: `${tempForm} form`, 
-              position: `${tempPos} pos`, 
-              chord: `${tempChord} chord`}
+        next: {
+            form: `${tempForm} form`, 
+            position: `${tempPos} pos`, 
+            chord: `${tempChord} chord`}
             });
 
       if (unitPass1.current) {
@@ -66,9 +65,11 @@ const DisplayHUD = () => {
         }
       }
       
-      unitPass1.current = {form: `${tempForm} form`, 
+      unitPass1.current = {
+          form: `${tempForm} form`, 
           position: `${tempPos} pos`, 
-          chord: `${tempChord} chord`}
+          chord: `${tempChord} chord`
+        }
 
       timingLineTransition();
 
@@ -101,7 +102,7 @@ const DisplayHUD = () => {
       <div className='display-HUD-inner-container'>
         {trainingUnits.current && <>
         <div className='previous-unit'>
-          <TrainingUnit unitInfo={trainingUnits.prev}/>
+          <TrainingUnit unitInfo={trainingUnits.prev} alwaysShowForm={true}/>
         </div>
         <div className='current-unit'>
           <TrainingUnit unitInfo={trainingUnits.current}/>

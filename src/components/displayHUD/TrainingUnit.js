@@ -1,10 +1,14 @@
 import React from 'react'
+import { useGlobalContext } from '../../context';
 
-const TrainingUnit = ({unitInfo}) => {
+const TrainingUnit = ({unitInfo, alwaysShowForm}) => {
   const {form, position, chord} = unitInfo;
+  const { trainingParameters } = useGlobalContext();
+  console.log(trainingParameters);
+
   return (
     <div className='training-unit'>
-      <p>{form}</p>
+      {trainingParameters.showForm || alwaysShowForm ? <p>{form}</p> : <p>&nbsp;</p>}
       <p>{position}</p>
       <p>{chord}</p>
     </div>

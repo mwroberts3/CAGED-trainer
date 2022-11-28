@@ -43,6 +43,12 @@ footer {
   align-items: center;
 }
 
+.sound-control *:first-of-type {
+  width: 20px;
+  margin: 5px 20px 0 0;
+  cursor: pointer;
+}
+
 .display-HUD-container {
   padding: 20px;
   max-width: var(--max-width);
@@ -67,17 +73,13 @@ footer {
 
 .current-unit {
   width: 50%;
+  height: 160px;
 }
 
 .previous-unit,
 .next-unit {
+  height: 160px;
   width: 25%;
-}
-
-.sound-control * {
-  width: 20px;
-  margin: 0 20px 0 0;
-  cursor: pointer;
 }
 
 .timing-line {
