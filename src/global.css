@@ -71,6 +71,21 @@ footer {
   font-family: 'Courier Prime', monospace;
 }
 
+.press-play {
+  text-align: center;
+  padding-top: 24px;
+  color: lime;
+  opacity: 1;
+  animation: flicker 1s ease;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flicker {
+  0% {opacity: 1;}
+  70% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
 .current-unit {
   width: 50%;
   height: 160px;

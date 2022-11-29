@@ -1,11 +1,12 @@
 import React from 'react'
 import TrainingUnit from './TrainingUnit'
+import PressPlay from './PressPlay'
 import { useState, useEffect, useRef } from 'react'
 import { useGlobalContext } from '../../context'
 import { data } from '../../data'
 
 const DisplayHUD = () => {
-  const { trainingParameters, speed, play, timingLineRef } = useGlobalContext();
+  const { trainingParameters, speed, play, timingLineRef, clickRef } = useGlobalContext();
 
   const unitPass1 = useRef(null);
   const unitPass2 = useRef(null);
@@ -13,15 +14,15 @@ const DisplayHUD = () => {
   const [trainingUnits, setTrainingUnits] = useState({});
 
   useEffect(() => {
-    generateNextTrainingUnit();
+    if (play) generateNextTrainingUnit(true);
     
     const trainingInterval = setInterval(() => {
       if (play) {
-        generateNextTrainingUnit();
+        generateNextTrainingUnit(false);
       }
     }, speed.value);
   
-    function generateNextTrainingUnit() {
+    function generateNextTrainingUnit(firstPlay) {
       let max = trainingParameters.fretRange.max * 5 === 0 ? 4 : trainingParameters.fretRange.max * 5 + 5;
       let min = trainingParameters.fretRange.min * 5 >= 0 ? trainingParameters.fretRange.min * 5 : 0;
 
@@ -48,14 +49,14 @@ const DisplayHUD = () => {
             position: unitPass2.current ? unitPass2.current.position : '', 
             chord: unitPass2.current ? unitPass2.current.chord : '',},
         current: {
-            form: unitPass1.current ? unitPass1.current.form : 'Ready?', 
+            form: unitPass1.current ? unitPass1.current.form : 'Get Ready', 
             position: unitPass1.current ? unitPass1.current.position : '', 
             chord: unitPass1.current ? unitPass1.current.chord : '',},
         next: {
             form: `${tempForm} form`, 
             position: `${tempPos} pos`, 
             chord: `${tempChord} chord`}
-            });
+      });
 
       if (unitPass1.current) {
         unitPass2.current = {
@@ -72,6 +73,7 @@ const DisplayHUD = () => {
         }
 
       timingLineTransition();
+      if (!firstPlay) clickRef.current.play();
 
       function createPosDis() {
         let pos = +Object.keys(data.chords[randomIndex])[0].substring(1);
@@ -95,12 +97,12 @@ const DisplayHUD = () => {
       }
     }
   return () => clearInterval(trainingInterval);
-  }, [speed, play, trainingParameters, timingLineRef])
+  }, [speed, play, trainingParameters.fretRange, timingLineRef, clickRef])
 
   return (
     <div className='display-HUD-container'>
       <div className='display-HUD-inner-container'>
-        {trainingUnits.current && <>
+        {trainingUnits.current ? <>
         <div className='previous-unit'>
           <TrainingUnit unitInfo={trainingUnits.prev} alwaysShowForm={true}/>
         </div>
@@ -109,7 +111,7 @@ const DisplayHUD = () => {
         </div>
         <div className='next-unit'>
           <TrainingUnit unitInfo={trainingUnits.next}/>
-        </div></>}
+        </div></> : <PressPlay />}
       </div>
     </div>
   )

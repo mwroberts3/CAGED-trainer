@@ -43,9 +43,10 @@ export const AppProvider = ({children}) => {
   }
 
   const [speed, setSpeed] = useState({setting: 1, value: 5000});
-  const [play, setPlay] = useState(true);
+  const [play, setPlay] = useState(false);
   const [mute, setMute] = useState(false);
-  const timingLineRef = useRef(null)
+  const timingLineRef = useRef(null);
+  const clickRef = useRef(null);
 
   return <AppContext.Provider value={{
     trainingParameters,
@@ -56,7 +57,8 @@ export const AppProvider = ({children}) => {
     setPlay,
     mute,
     setMute,
-    timingLineRef
+    timingLineRef,
+    clickRef
   }}>
     {children}
   </AppContext.Provider>

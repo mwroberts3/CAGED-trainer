@@ -4,7 +4,6 @@ import { useGlobalContext } from '../../context';
 const TrainingUnit = ({unitInfo, alwaysShowForm}) => {
   const {form, position, chord} = unitInfo;
   const { trainingParameters } = useGlobalContext();
-  console.log(trainingParameters);
 
   return (
     <div className='training-unit'>
