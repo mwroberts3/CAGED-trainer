@@ -47,6 +47,7 @@ export const AppProvider = ({children}) => {
   const [mute, setMute] = useState(false);
   const timingLineRef = useRef(null);
   const clickRef = useRef(null);
+  const softClickRef = useRef(null);
 
   return <AppContext.Provider value={{
     trainingParameters,
@@ -58,7 +59,8 @@ export const AppProvider = ({children}) => {
     mute,
     setMute,
     timingLineRef,
-    clickRef
+    clickRef,
+    softClickRef
   }}>
     {children}
   </AppContext.Provider>

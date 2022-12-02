@@ -6,23 +6,43 @@ import { useGlobalContext } from '../../context'
 import { data } from '../../data'
 
 const DisplayHUD = () => {
-  const { trainingParameters, speed, play, timingLineRef, clickRef } = useGlobalContext();
+  const { trainingParameters, speed, play, timingLineRef, clickRef, softClickRef, mute } = useGlobalContext();
 
   const unitPass1 = useRef(null);
   const unitPass2 = useRef(null);
+  
+  const pressPlayRef = useRef(null);
 
   const [trainingUnits, setTrainingUnits] = useState({});
 
   useEffect(() => {
-    if (play) generateNextTrainingUnit(true);
+    let count = 0;
+
+    if (play) {
+      unitPass1.current = null;
+      unitPass2.current = null;
+      clickRef.current.play();
+      generateNextTrainingUnit(count);
+    }
     
     const trainingInterval = setInterval(() => {
-      if (play) {
-        generateNextTrainingUnit(false);
+      if (play && count < 4) {
+        pressPlayRef.current.textContent = count + 1;
+      } else if (play) {
+        pressPlayRef.current.style.display = 'none';
       }
-    }, speed.value);
+
+      count++
+
+      if (play && count % 4 === 0) {        
+        clickRef.current.play();
+        generateNextTrainingUnit();
+      } else if (play) {
+        softClickRef.current.play();
+      }
+    }, speed.value / 4);
   
-    function generateNextTrainingUnit(firstPlay) {
+    function generateNextTrainingUnit() {
       let max = trainingParameters.fretRange.max * 5 === 0 ? 4 : trainingParameters.fretRange.max * 5 + 5;
       let min = trainingParameters.fretRange.min * 5 >= 0 ? trainingParameters.fretRange.min * 5 : 0;
 
@@ -49,8 +69,8 @@ const DisplayHUD = () => {
             position: unitPass2.current ? unitPass2.current.position : '', 
             chord: unitPass2.current ? unitPass2.current.chord : '',},
         current: {
-            form: unitPass1.current ? unitPass1.current.form : 'Get Ready', 
-            position: unitPass1.current ? unitPass1.current.position : '', 
+            form: unitPass1.current ? unitPass1.current.form : '', 
+            position: unitPass1.current ? unitPass1.current.position : `${count + 1}`, 
             chord: unitPass1.current ? unitPass1.current.chord : '',},
         next: {
             form: `${tempForm} form`, 
@@ -73,8 +93,7 @@ const DisplayHUD = () => {
         }
 
       timingLineTransition();
-      if (!firstPlay) clickRef.current.play();
-
+      
       function createPosDis() {
         let pos = +Object.keys(data.chords[randomIndex])[0].substring(1);
 
@@ -97,12 +116,15 @@ const DisplayHUD = () => {
       }
     }
   return () => clearInterval(trainingInterval);
-  }, [speed, play, trainingParameters.fretRange, timingLineRef, clickRef])
+  }, [speed, play, trainingParameters.fretRange, timingLineRef, clickRef, softClickRef])
 
   return (
     <div className='display-HUD-container'>
+      <audio src='click.wav' ref={clickRef} muted={mute}/>
+      <audio src='soft-click.wav' ref={softClickRef} muted={mute}/>
       <div className='display-HUD-inner-container'>
-        {trainingUnits.current ? <>
+        <PressPlay pressPlayRef={pressPlayRef}/>
+        {trainingUnits.current && <>
         <div className='previous-unit'>
           <TrainingUnit unitInfo={trainingUnits.prev} alwaysShowForm={true}/>
         </div>
@@ -111,7 +133,7 @@ const DisplayHUD = () => {
         </div>
         <div className='next-unit'>
           <TrainingUnit unitInfo={trainingUnits.next}/>
-        </div></> : <PressPlay />}
+        </div></>}
       </div>
     </div>
   )

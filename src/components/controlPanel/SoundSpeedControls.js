@@ -3,7 +3,7 @@ import { FaVolumeMute, FaVolumeUp, FaPlay, FaPause } from 'react-icons/fa'
 import { useGlobalContext } from '../../context'
 
 const SoundSpeedControls = () => {
-  const { speed, setSpeed, play, setPlay, mute, setMute, clickRef } = useGlobalContext();
+  const { speed, setSpeed, play, setPlay, mute, setMute } = useGlobalContext();
 
   const handleSpeedChange = (e) => {
     if (+e.target.value === 1) setSpeed({setting: e.target.value, value: 5000})
@@ -12,7 +12,6 @@ const SoundSpeedControls = () => {
   }
 
   return <>
-      <audio src='click.wav' ref={clickRef} muted={mute}/>
       <div className='sound-control option-setting'>
         {!mute ? <FaVolumeUp onClick={() => setMute(true)}/> : <FaVolumeMute onClick={() => setMute(false)}/>}
         {play ? <FaPause onClick={() => setPlay(false)}/> : <FaPlay onClick={() => setPlay(true)}/>}
