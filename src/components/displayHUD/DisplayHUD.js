@@ -6,12 +6,10 @@ import { useGlobalContext } from '../../context'
 import { data } from '../../data'
 
 const DisplayHUD = () => {
-  const { trainingParameters, speed, play, timingLineRef, clickRef, softClickRef, mute } = useGlobalContext();
+  const { trainingParameters, speed, play, timingLineRef, clickRef, softClickRef, pressPlayRef, mute } = useGlobalContext();
 
   const unitPass1 = useRef(null);
   const unitPass2 = useRef(null);
-  
-  const pressPlayRef = useRef(null);
 
   const [trainingUnits, setTrainingUnits] = useState({});
 
@@ -26,8 +24,10 @@ const DisplayHUD = () => {
     }
     
     const trainingInterval = setInterval(() => {
-      if (play && count < 4) {
-        pressPlayRef.current.textContent = count + 1;
+      if (!play) pressPlayRef.current.style.display = 'block'; 
+
+      if (play && count < 3) {
+        pressPlayRef.current.textContent = count + 2;
       } else if (play) {
         pressPlayRef.current.style.display = 'none';
       }
@@ -63,20 +63,22 @@ const DisplayHUD = () => {
 
       let tempChord = Object.values(data.chords[randomIndex])[0];
         
-      setTrainingUnits({
+      if (count > 3) {
+        setTrainingUnits({
         prev: {
             form: unitPass2.current ? unitPass2.current.form : '', 
             position: unitPass2.current ? unitPass2.current.position : '', 
             chord: unitPass2.current ? unitPass2.current.chord : '',},
         current: {
             form: unitPass1.current ? unitPass1.current.form : '', 
-            position: unitPass1.current ? unitPass1.current.position : `${count + 1}`, 
+            position: unitPass1.current ? unitPass1.current.position : ``, 
             chord: unitPass1.current ? unitPass1.current.chord : '',},
         next: {
             form: `${tempForm} form`, 
             position: `${tempPos} pos`, 
             chord: `${tempChord} chord`}
       });
+      }
 
       if (unitPass1.current) {
         unitPass2.current = {
@@ -116,15 +118,15 @@ const DisplayHUD = () => {
       }
     }
   return () => clearInterval(trainingInterval);
-  }, [speed, play, trainingParameters.fretRange, timingLineRef, clickRef, softClickRef])
+  }, [speed, play, trainingParameters.fretRange, timingLineRef, clickRef, softClickRef, pressPlayRef])
 
   return (
     <div className='display-HUD-container'>
       <audio src='click.wav' ref={clickRef} muted={mute}/>
       <audio src='soft-click.wav' ref={softClickRef} muted={mute}/>
       <div className='display-HUD-inner-container'>
-        <PressPlay pressPlayRef={pressPlayRef}/>
-        {trainingUnits.current && <>
+        <PressPlay pressPlayRef={pressPlayRef} msg={play ? '1' : 'Press Play'}/>
+        {trainingUnits.current && pressPlayRef.current.style.display === 'none' && play && <>
         <div className='previous-unit'>
           <TrainingUnit unitInfo={trainingUnits.prev} alwaysShowForm={true}/>
         </div>

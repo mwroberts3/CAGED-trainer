@@ -1,6 +1,6 @@
-const PressPlay = ({pressPlayRef}) => {
+const PressPlay = ({pressPlayRef, msg}) => {
   return (
-    <div className='current-unit press-play' ref={pressPlayRef}>Press Play</div>
+    <div className='current-unit press-play' ref={pressPlayRef}>{msg}</div>
   )
 }
 
